@@ -1,0 +1,196 @@
+<html>
+<head>
+    <!--bootstrap cdn-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--custom css-->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+
+<div class="row">
+
+    <!--left portion-->
+    <div class="col-xs-4 left">
+        <div class="img-stl" align="center">
+            <img  src="/uploads/<%= photograph[0].userImage %>" class="img-circle" alt="image" height="200" width="200">
+        </div>
+
+        <div>
+            <div class="title-text-left title-padding-top">ABOUT </div>
+            <div class="padding-top"></div>
+
+            <p class="about-text"> <%= careerSummary[0].careerSummary %> </p>
+        </div>
+
+        <div>
+            <div class="title-text-left title-padding-top">MAILING ADDRESS</div>
+            <div class="padding-top"></div>
+
+            <p class="about-text"><span><%= address[0].details %></span>,&nbsp;<span><%= address[0].post.postName %></span>,&nbsp;
+                <span><%= address[0].upazila.upazilaName %></span>,&nbsp;<span><%= address[0].district.districtName %></span>-<span><%= address[0].post.postCode %></span></p>
+            <div><img class="social-icon" src="/images/phone.png" alt="" height="20"><%= user.phone%></div>
+            <div><img class="social-icon" src="/images/email.png" alt="" height="20"><%= user.email%></div>
+            <!--<p><img class="social-icon" src="/images/github.png" alt="" height="25">www.github.com/monirTuhin</p>-->
+        </div>
+
+        <div>
+            <div class="title-text-left title-padding-top">FOLLOW ME</div>
+            <div class="padding-top"></div>
+
+            <% for(var i=0; i < socialLink.length; i++) { %>
+            <div>
+                <img class="social-icon" src="/images/<%= socialLink[i].socialSite.icon %>" alt="" height="20"><%= socialLink[i].link %>
+            </div>
+            <% } %>
+
+        </div>
+
+        <div>
+            <div class="title-text-left title-padding-top">SKILLS</div>
+            <div class="padding-top"></div>
+            <div>
+                <% for(var i=0; i < skills.length; i++) { %>
+                <div class="padding-skills"><span><%= skills[i].skill %></span></div>
+                <% } %>
+            </div>
+
+        </div>
+
+    </div>
+    <!--left portion-->
+
+
+    <!--right portion-->
+    <div class="col-xs-8" style="padding: 0">
+
+        <!--cv title-->
+        <div class="cv-title-area">
+            <div class="cv-name"><%= user.name%></div>
+            <div class="line-style"></div>
+            <div class="cv-profession"><%= user.cvTitle%></div>
+        </div>
+        <!--cv title-->
+
+        <!--experience-->
+        <div>
+            <div class="rightside-title">
+                <img class="social-icon" src="/images/experiences.png" alt="" height="25">Experiences
+            </div>
+
+            <div class="total-year-ex">Total Year of Experience : <%= totalExperience %> Year(s)</div>
+
+            <% for(var i=0; i < employment.length; i++) { %>
+            <div class="row title-row">
+                <div class="col-xs-3 year"><span><%= moment(employment[i].jobPeriodFrom).format('MMM YYYY') %></span> -
+
+                    <% if (employment[i].currentlyWorking == true) { %>
+                    <span>Continue</span>
+                    <% } else { %>
+                    <span><%= moment(employment[i].jobPeriodTo).format('MMM YYYY') %></span>
+                    <% } %>
+
+                </div>
+                <div class="col-xs-9">
+                    <div class="organization"><%= employment[i].companyName %></div>
+                    <div class="designation"><%= employment[i].designation %></div>
+                    <div style="text-align: justify"><span style="color: #4b4b4b; font-style: italic">Responsibilities :&nbsp;</span>
+                        <%= employment[i].responsibilities %>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <!--experience-->
+
+        <!--training-->
+        <div>
+            <div class="rightside-title">
+                <img class="social-icon" src="/images/training.png" alt="" height="25">Training
+            </div>
+
+            <% for(var i=0; i < training.length; i++) { %>
+            <div class="row title-row" style="padding-top: 10px">
+                <div class="col-xs-3 year" ><%= training[i].trainingYear %></div>
+                <div class="col-xs-9" >
+                    <div class="organization"><%= training[i].trainingTitle %></div>
+                    <div class="designation"><%= training[i].institute %></div>
+                    <div class="row">
+                        <div class="col-xs-6"><span style="color: #4b4b4b; font-style: italic">Location :&nbsp;</span><%= training[i].location %></div>
+                        <div class="col-xs-6"><span style="color: #4b4b4b; font-style: italic">Duration :&nbsp;</span><%= training[i].duration %></div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+        </div>
+        <!--training-->
+
+        <!--education-->
+        <div style="padding-bottom: 15px">
+            <div class="rightside-title">
+                <img class="social-icon" src="/images/education.png" alt="" height="25">Educations
+            </div>
+            <% for(var i=0; i < education.length; i++) { %>
+            <div class="row title-row" style="padding: 10px 0 0 15px">
+                <div class="col-xs-3 year"><%= education[i].passingYear %></div>
+
+                <% if (education[i].board == "") { %>
+                <div class="col-xs-9" >
+                    <div class="organization"><%= education[i].institute %></div>
+                    <div class="designation"><%= education[i].exam.exam %> in <%= education[i].major %></div>
+                </div>
+                <% } else { %>
+
+                <div class="col-xs-9" >
+                    <div class="organization"><%= education[i].institute %></div>
+                    <div class="row">
+                        <div class="col-xs-6 designation"><%= education[i].exam.exam %> in <%= education[i].major %></div>
+                        <div class="col-xs-6 designation"><span style="font-style: italic; padding-right: 10px">Board :</span><%= education[i].board %></div>
+                    </div>
+                </div>
+
+                <% } %>
+
+            </div>
+            <% } %>
+        </div>
+        <!--education-->
+
+        <!--reference-->
+        <div>
+            <div class="rightside-title">
+                <img class="social-icon" src="/images/reference.png" alt="" height="25">Reference
+            </div>
+            <div class="title-row row">
+
+                <% for(var i=0; i < reference.length; i++) { %>
+                <div class="col-xs-6" style="padding-top: 10px">
+                    <div style="font-size: 14px; font-weight: 600; padding-bottom: 5px"><%= reference[i].name %>
+                        <span style="font-size: 11px; font-weight: bold; color: #4a4a4a"><%= reference[i].designation %></span></div>
+                    <div><span style="color: #4b4b4b; font-style: italic">Organization :&nbsp;</span><%= reference[i].organization %></div>
+                    <div><span style="color: #4b4b4b; font-style: italic">Relation :&nbsp;</span><%= reference[i].relation %></div>
+                    <div><span style="color: #4b4b4b; font-style: italic">Contact No :&nbsp;</span><%= reference[i].contactNumber %></div>
+                </div>
+                <% } %>
+
+            </div>
+        </div>
+        <!--reference-->
+
+    </div>
+    <!--right portion-->
+
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
