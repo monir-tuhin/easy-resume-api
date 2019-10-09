@@ -54,7 +54,7 @@ router.put('/forgotPassword', async (req, res) => {
 // forgot password
 router.put('/resetPasswordByToken', async (req, res) => {
     let user = await User.findOne({resetPasswordToken: req.body.resetPasswordToken});
-    if (!user) return res.status(400).send('Password reset token is invalid or has expired !');
+    if (!user) return res.status(400).send('Password reset token is invalid or has expired !!');
 
     user = await User.findByIdAndUpdate(user._id, {
         password: req.body.password,
@@ -68,6 +68,7 @@ router.put('/resetPasswordByToken', async (req, res) => {
     await user.save();
 
     res.send({message: 'success'});
+
 })
 
 
